@@ -11,6 +11,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { preguntasAPIGetPreguntas } from "@/api/preguntasAPI";
 import { encuestasAPISaveEncuesta } from "@/api/encuestasAPI";
 import { Question } from "@/components/Question";
+import { toast } from "sonner";
 
 export const EncuestaForm = ({ codigo }: { codigo: string }) => {
   const { data, isLoading, error } = useQuery({
@@ -19,7 +20,7 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
     refetchOnWindowFocus: false,
   });
 
-  const { mutate: enviarEncuesta, error: submitError } = useMutation({
+  const { mutate: enviarEncuesta, error: saveError } = useMutation({
     mutationFn: async (formData: FormValues) => {
       const response = await encuestasAPISaveEncuesta({
         codigo,
@@ -28,10 +29,10 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
       return response;
     },
     onSuccess: () => {
-      // Opcional: maneja el éxito, muestra mensaje o cambia estado
+      toast.success("Encuesta enviada correctamente");
     },
     onError: () => {
-      // Opcional: maneja el error de envío
+      toast.error("Error al enviar la encuesta");
     },
   });
 
@@ -67,11 +68,12 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
     ? data.preguntas[pasoActual].id
     : null;
 
-  const onSubmit: SubmitHandler<FormValues> = (formData) => {
-    // Se envía la encuesta mediante la mutation
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     enviarEncuesta(formData);
-    setEstadoFormulario("final");
-    reset();
+    if (!saveError) {
+      setEstadoFormulario("final");
+      reset();
+    }
   };
 
   const handleNext = useCallback(async () => {
@@ -92,7 +94,7 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
       <BienvenidaForm
         onClick={() => setEstadoFormulario("preguntas")}
         isLoading={isLoading}
-        error={error || submitError}
+        error={error}
         totalPreguntas={(data && data.preguntas && data?.preguntas.length) || 0}
       />
     );

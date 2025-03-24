@@ -16,6 +16,7 @@ export default function Home() {
     queryFn: async () => encuestasAPIGetEncuesta({ codigo: codigo! }),
     refetchOnWindowFocus: false,
     enabled: !!codigo,
+    retry: false,
   });
 
   if (!codigo) return <ErrorForm />;

@@ -38,9 +38,5 @@ export const encuestasAPISaveEncuesta = async ({
     throw new Error("Error al obtener encuesta");
   }
 
-  if (response.data.codigo !== 1) {
-    throw new Error("La encuesta no es válida");
-  }
-
   return await response.data;
 };
