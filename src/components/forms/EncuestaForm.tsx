@@ -107,12 +107,13 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="container">
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between md:border-b md:border-b-gray-500 pb-4 w-full">
+        <div className="flex flex-col md:flex-row md:items-center justify-between md:border-b md:border-b-primary-400 pb-4 w-full">
           <h1 className="text-2xl font-semibold text-gray-700 text-center">
             Encuesta de satisfacción
           </h1>
           <p className="text-center">
-            Pregunta <b>{pasoActual + 1}</b> de <b>{data.preguntas.length}</b>
+            Pregunta <b className="text-primary-400">{pasoActual + 1}</b> de{" "}
+            <b>{data.preguntas.length}</b>
           </p>
         </div>
         <div className="relative overflow-hidden grid grid-cols-1 gap-8">
@@ -157,7 +158,7 @@ export const EncuestaForm = ({ codigo }: { codigo: string }) => {
             )}
             disabled={!isValid}
           >
-            Enviar Encuesta
+            Finalizar
             <Send size={16} />
           </button>
         ) : (

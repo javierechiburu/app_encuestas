@@ -32,14 +32,14 @@ export const BienvenidaForm = ({
 
   return (
     <div className="container flex flex-col min-h-screen">
-      <div className="p-8 bg-primary-50 border-b border-primary-200 flex flex-col-reverse md:flex-row items-center gap-4 justify-between">
+      <div className="p-8 bg-primary-100 border-b border-primary-200 flex flex-col-reverse md:flex-row items-center gap-4 justify-between">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <ClipboardList className="hidden md:block w-12 h-12 text-emerald-500 animate-pulse" />
           <div>
             <h1 className="text-2xl font-medium text-gray-800 text-center md:text-left">
               Encuesta de Satisfacción
             </h1>
-            <p className="text-primary-600 text-center md:text-left">
+            <p className="text-primary-700 text-center md:text-left">
               Tu opinión es importante para nosotros
             </p>
           </div>
@@ -67,7 +67,7 @@ export const BienvenidaForm = ({
               Tiempo estimado:{" "}
               {totalPreguntas > 0 ? (
                 calcularPromedioRespuestas().tiempoMinimo +
-                " - " +
+                "-" +
                 calcularPromedioRespuestas().tiempoMaximo
               ) : (
                 <Loader2 size={12} className="animate-spin" />
